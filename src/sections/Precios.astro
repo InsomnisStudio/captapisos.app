@@ -3,7 +3,7 @@ import Icon from '../components/Icon.astro'
 import { EMAIL_CONTACTO, URL_REGISTRO } from '../lib/config'
 
 /* Precios sin IVA; el anual son 10 mensualidades (2 meses gratis). */
-const PRUEBA = { dias: 7, alertas: 1, iaDiaria: 30 }
+const PRUEBA = { dias: 7, iaDiaria: 30 }
 
 const PLANES = [
   {
@@ -151,8 +151,8 @@ const asunto = encodeURIComponent('Captapisos para agencias')
 
     <p class="mt-6 text-[13px] text-tinta-suave">
       Precios sin IVA (se añade el 21 % al pagar). Prueba gratuita de {PRUEBA.dias} días con tarjeta: no se cobra nada
-      hasta el día 8 y puedes cancelar antes desde tu cuenta. Durante la prueba: {PRUEBA.alertas} alerta y criterio con IA
-      ({PRUEBA.iaDiaria} al día). Una prueba por cuenta.
+      hasta el día 8 y puedes cancelar antes desde tu cuenta. Durante la prueba tienes lo que incluye el plan elegido
+      (el criterio con IA de Pro, hasta {PRUEBA.iaDiaria} comprobaciones al día). Una prueba por cuenta.
     </p>
   </div>
 </section>
