@@ -134,7 +134,7 @@
   .titulo-2 { @apply text-titulo-2 font-semibold tracking-[-0.025em]; }
   .titulo-3 { @apply text-titulo-3 font-semibold tracking-[-0.01em]; }
   .cifra { @apply font-medium tabular-nums tracking-[-0.02em]; }
-  .entradilla { @apply text-[1.0625rem] leading-[1.55] text-tinta-suave sm:text-lg; }
+  .entradilla { @apply text-[1.0625rem] leading-[1.55] text-pretty text-tinta-suave sm:text-lg; }
 
   /* «● 01 · ESENCIA»: el punto de señal marca dónde estás. */
   .antetitulo { @apply etiqueta inline-flex items-center gap-2.5 text-senal-texto; }

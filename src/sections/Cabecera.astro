@@ -1,5 +1,6 @@
 ---
 import Logo from '../components/Logo.astro'
+import Simbolo from '../components/Simbolo.astro'
 import { URL_LOGIN, URL_REGISTRO } from '../lib/config'
 
 const NAV = [
@@ -12,9 +13,12 @@ const NAV = [
 ---
 
 <header class="sticky top-0 z-40 border-b border-linea bg-fondo/90 backdrop-blur-md supports-[backdrop-filter]:bg-fondo/80">
-  <div class="marco flex h-16 items-center gap-6">
+  <div class="marco flex h-16 items-center gap-3 sm:gap-6">
+    <!-- En móvil el logotipo encoge para que quepan «Entrar» y «Prueba gratis»; por debajo de 360 px, solo el símbolo. -->
     <a href="/" class="-ml-1 shrink-0 rounded-md p-1 whitespace-nowrap" aria-label="Captapisos, ir al inicio">
-      <Logo size={26} />
+      <Simbolo class="size-8 text-tinta min-[360px]:hidden" />
+      <Logo size={22} class="hidden min-[360px]:block sm:hidden" />
+      <Logo size={26} class="hidden sm:block" />
     </a>
     <nav aria-label="Secciones" class="ml-2 hidden lg:block">
       <ul class="flex items-center gap-1 text-pequeno">
