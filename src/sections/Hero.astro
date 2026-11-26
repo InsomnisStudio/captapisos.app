@@ -1,0 +1,231 @@
+---
+import CasaRayosX from '../components/CasaRayosX.astro'
+import Icon from '../components/Icon.astro'
+import { API_URL, URL_REGISTRO } from '../lib/config'
+
+// Tarjeta del anuncio, único elemento visual del hero. Estática de ejemplo; si el backend devuelve un anuncio real (§9 de
+// docs/front-alertas.md), el script la rellena con él y la convierte en enlace al anuncio. Ejemplo y real
+// tienen exactamente la misma forma y tamaño: al cambiar no salta nada.
+const PUNTOS = 88
+const r = 19
+const c = 2 * Math.PI * r
+---
+
+<section id="inicio" aria-labelledby="hero-titulo">
+  <div class="marco grid items-center gap-12 pt-14 pb-16 sm:pt-20 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pt-24 lg:pb-24">
+    <div>
+      <span class="antetitulo en-vivo">Alertas de particulares</span>
+      <h1 id="hero-titulo" class="display mt-6">
+        Llega primero <span class="text-senal">al propietario.</span>
+      </h1>
+      <p class="entradilla mt-6 max-w-xl">
+        Captapisos te avisa en cuanto un particular publica su vivienda en tu zona. Separamos sus anuncios de los de
+        agencia, te decimos por qué y tú llamas primero.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href={URL_REGISTRO} class="btn btn-primario">
+          Empieza ahora
+          <Icon name="flecha" />
+        </a>
+        <a href="#como-funciona" class="btn btn-secundario">Ver cómo funciona</a>
+      </div>
+      <p class="mt-4 text-pequeno text-tinta-suave">7 días gratis, sin tarjeta.</p>
+      <ul class="mt-10 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[12px] tracking-[0.04em] text-tinta-suave">
+        <li class="inline-flex items-center gap-2"><Icon name="pin" class="size-3.5" />Toda España</li>
+        <li class="inline-flex items-center gap-2"><Icon name="reloj" class="size-3.5" />Aviso a los pocos minutos</li>
+        <li class="inline-flex items-center gap-2"><Icon name="lista" class="size-3.5" />Motivos en cada aviso</li>
+      </ul>
+    </div>
+
+    <figure class="min-w-0">
+      <!-- El aviso tal y como le llega a un agente: el único elemento visual del hero. -->
+      <div
+        id="muestra"
+        data-api={API_URL}
+        class="tarjeta relative mx-auto block w-full max-w-[480px] p-2.5 transition-colors sm:p-3 lg:mr-0 lg:ml-auto"
+        role="group"
+        aria-label="Ejemplo de aviso con datos inventados: piso de 3 habitaciones y 94 m² en Chamberí, Madrid, por 412.000 €. Puntuación de propietario: 88 de 100."
+      >
+        <span data-m="sello" class="chip chip-ejemplo absolute -top-3 right-4 z-10">Ejemplo</span>
+
+        <!-- Foto 16:10. Debajo, siempre, el hueco con la casa a rayos X, del mismo tamaño. -->
+        <div data-m="foto" class="papel-milimetrado relative aspect-[16/10] overflow-hidden rounded-tarjeta bg-fondo-alt">
+          <div class="absolute inset-0 grid place-items-center" aria-hidden="true">
+            <CasaRayosX class="w-[56%]" suelo={false} />
+          </div>
+          <span class="chip chip-nuevo absolute top-3 left-3 z-10 h-7 px-2.5 text-[12px]">
+            <span class="punto-senal size-1.5"></span>Nuevo particular
+          </span>
+          <span class="absolute bottom-3 left-3 z-10 inline-flex items-center gap-2 rounded-full bg-fondo py-1 pr-3.5 pl-1 text-[14px] font-medium">
+            <span class="relative size-9 shrink-0">
+              <svg viewBox="0 0 44 44" class="size-full -rotate-90" aria-hidden="true">
+                <circle cx="22" cy="22" r={r} class="fill-none stroke-linea" stroke-width="3.5"></circle>
+                <circle
+                  data-m="anillo"
+                  cx="22"
+                  cy="22"
+                  r={r}
+                  class="fill-none stroke-senal"
+                  stroke-width="3.5"
+                  stroke-linecap="round"
+                  stroke-dasharray={c}
+                  stroke-dashoffset={c * (1 - PUNTOS / 100)}></circle>
+              </svg>
+              <span data-m="puntos" class="cifra absolute inset-0 grid place-items-center text-[12px]">{PUNTOS}</span>
+            </span>
+            <span data-m="veredicto">Particular</span>
+          </span>
+        </div>
+
+        <div class="px-2 pt-4 pb-2 sm:px-2.5">
+          <p class="flex items-baseline gap-3 overflow-hidden whitespace-nowrap">
+            <span data-m="precio" class="cifra shrink-0 text-[28px] leading-8 sm:text-[32px]">412.000 €</span>
+            <span data-m="medidas" class="truncate text-[15px] text-tinta-suave">3 hab. · 94 m²</span>
+          </p>
+          <p class="mt-1.5 flex h-6 min-w-0 items-center gap-2 text-[15px]">
+            <Icon name="pin" class="size-4 shrink-0 text-tinta-suave" />
+            <span data-m="zona" class="truncate">Chamberí · Madrid</span>
+          </p>
+        </div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<script>
+  // Anuncio real del backend (GET /api/public/sample-listing, §9 de docs/front-alertas.md). Si tarda,
+  // falla o no hay, se queda la tarjeta de ejemplo. Todo se escribe como texto, nunca como HTML.
+  type Muestra = {
+    portal?: string
+    url: string
+    title?: string
+    thumbnail?: string | null
+    operation: string
+    price: number
+    rooms?: number | null
+    size_m2?: number | null
+    location?: { barrio?: string | null; municipio?: string | null; provincia?: string | null } | null
+    owner_score: number
+    verdict: string
+  }
+
+  const VEREDICTOS: Record<string, string> = { owner: 'Particular', uncertain: 'Dudoso', professional: 'Profesional' }
+
+  /** «412.000», «1.240»: punto de millar siempre (Intl en es-ES no lo pone con 4 cifras). */
+  const miles = (n: number) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+  const esTexto = (v: unknown): v is string => typeof v === 'string' && v.trim() !== ''
+  const esNumero = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v)
+  /** Solo enlaces y fotos http(s). */
+  function urlSegura(v: unknown) {
+    if (!esTexto(v)) return null
+    try {
+      const u = new URL(v)
+      return u.protocol === 'https:' || u.protocol === 'http:' ? u.href : null
+    } catch {
+      return null
+    }
+  }
+
+  function valida(d: unknown): d is Muestra {
+    if (!d || typeof d !== 'object') return false
+    const m = d as Muestra
+    return urlSegura(m.url) !== null && esNumero(m.price) && esNumero(m.owner_score)
+  }
+
+  function pinta(tarjeta: HTMLElement, m: Muestra) {
+    const $ = <T extends Element = HTMLElement>(k: string) => tarjeta.querySelector<T>(`[data-m="${k}"]`)!
+    const puntos = Math.max(0, Math.min(100, Math.round(m.owner_score)))
+    const veredicto = VEREDICTOS[m.verdict] ?? 'Particular'
+    const portal = esTexto(m.portal) ? m.portal.trim() : 'el portal'
+    const titulo = esTexto(m.title) ? m.title.trim() : 'Anuncio de particular'
+
+    $('sello').remove()
+
+    // Foto encima del hueco neutro. Si falla, se quita y queda el hueco.
+    const foto = urlSegura(m.thumbnail)
+    if (foto) {
+      const img = document.createElement('img')
+      img.alt = titulo
+      img.loading = 'eager'
+      img.decoding = 'async'
+      img.referrerPolicy = 'no-referrer'
+      img.className = 'absolute inset-0 size-full object-cover opacity-0 transition-opacity duration-300'
+      img.addEventListener('load', () => img.classList.remove('opacity-0'), { once: true })
+      img.addEventListener('error', () => img.remove(), { once: true })
+      img.src = foto
+      $('foto').append(img)
+    }
+
+    const anillo = $<SVGCircleElement>('anillo')
+    anillo.setAttribute('stroke-dashoffset', String(2 * Math.PI * 19 * (1 - Math.max(puntos, 1) / 100)))
+    if (m.verdict !== 'owner') anillo.classList.replace('stroke-senal', 'stroke-tinta-suave')
+    $('puntos').textContent = String(puntos)
+    $('veredicto').textContent = veredicto
+
+    const precio = `${miles(m.price)} €${m.operation === 'rent' ? '/mes' : ''}`
+    const medidas = [
+      esNumero(m.rooms) ? `${m.rooms} hab.` : null,
+      esNumero(m.size_m2) ? `${miles(m.size_m2)} m²` : null,
+    ].filter(Boolean)
+    $('precio').textContent = precio
+    $('medidas').textContent = medidas.join(' · ')
+
+    const l = m.location ?? {}
+    const zona = [esTexto(l.barrio) ? l.barrio : l.municipio, l.provincia]
+      .filter(esTexto)
+      .map((s) => s.trim())
+      .filter((s, i, a) => s !== a[i - 1])
+    $('zona').textContent = zona.length ? zona.join(' · ') : 'España'
+
+    // La tarjeta entera pasa a ser un enlace al anuncio.
+    const enlace = document.createElement('a')
+    enlace.id = tarjeta.id
+    enlace.className = `${tarjeta.className} hover:border-linea-fuerte`
+    enlace.href = urlSegura(m.url)!
+    enlace.target = '_blank'
+    enlace.rel = 'noopener nofollow'
+    enlace.setAttribute(
+      'aria-label',
+      [
+        `Anuncio real de particular: ${titulo}`,
+        [precio, ...medidas].join(', '),
+        zona.join(', '),
+        `Puntuación de propietario: ${puntos} de 100 (${veredicto})`,
+        `Abre el anuncio en ${portal} en una pestaña nueva`,
+      ]
+        .filter(Boolean)
+        .join('. ') + '.',
+    )
+    enlace.append(...tarjeta.childNodes)
+    tarjeta.replaceWith(enlace)
+    return enlace
+  }
+
+  async function carga() {
+    const tarjeta = document.getElementById('muestra')
+    const base = tarjeta?.dataset.api?.replace(/\/+$/, '')
+    if (!tarjeta || !base) return
+    const ctrl = new AbortController()
+    const plazo = window.setTimeout(() => ctrl.abort(), 4000)
+    try {
+      const res = await fetch(`${base}/api/public/sample-listing`, {
+        signal: ctrl.signal,
+        credentials: 'omit',
+        headers: { Accept: 'application/json' },
+      })
+      if (!res.ok) return
+      const datos: unknown = await res.json()
+      if (!valida(datos)) return
+      const nueva = pinta(tarjeta, datos)
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        nueva.animate([{ opacity: 0.55 }, { opacity: 1 }], { duration: 280, easing: 'ease-out' })
+      }
+    } catch {
+      // Sin backend, sin red o fuera de plazo: se queda el ejemplo.
+    } finally {
+      window.clearTimeout(plazo)
+    }
+  }
+
+  carga()
+</script>

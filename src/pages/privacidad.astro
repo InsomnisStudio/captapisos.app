@@ -1,0 +1,162 @@
+---
+import Legal from '../layouts/Legal.astro'
+import { EMAIL_CONTACTO } from '../lib/config'
+---
+
+<Legal
+  titulo="Política de privacidad"
+  descripcion="Cómo trata Captapisos los datos personales de sus clientes y de los anuncios públicos que analiza."
+  actualizado="26 de noviembre de 2026"
+>
+  <h2>1. Responsable del tratamiento</h2>
+  <ul>
+    <li><strong>Responsable:</strong> [RAZÓN SOCIAL]</li>
+    <li><strong>NIF:</strong> [NIF]</li>
+    <li><strong>Domicilio:</strong> [DOMICILIO]</li>
+    <li>
+      <strong>Contacto:</strong> <a href={`mailto:${EMAIL_CONTACTO}`}>{EMAIL_CONTACTO}</a>
+    </li>
+  </ul>
+  <p>
+    Esta política explica cómo tratamos los datos personales en Captapisos conforme al Reglamento (UE) 2016/679 (RGPD) y
+    a la Ley Orgánica 3/2018 de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD).
+  </p>
+
+  <h2>2. Qué datos tratamos</h2>
+  <h3>De nuestros clientes y usuarios</h3>
+  <ul>
+    <li>Datos de cuenta: nombre, empresa (opcional), email y contraseña (guardada cifrada, nunca en claro).</li>
+    <li>
+      Datos de uso del servicio: tus alertas y criterios, el estado que das a cada aviso (sin ver, contactado,
+      descartado) y tu plan.
+    </li>
+    <li>
+      Datos de facturación: los gestiona Stripe. Nosotros solo guardamos los identificadores necesarios para relacionar
+      tu cuenta con tu suscripción, no los datos completos de tu tarjeta.
+    </li>
+    <li>Datos técnicos: dirección IP, fecha y hora de acceso y registros de errores, para la seguridad del servicio.</li>
+    <li>Los mensajes que nos envíes por email.</li>
+  </ul>
+
+  <h3>De las personas que publican anuncios en portales</h3>
+  <p>
+    Analizamos anuncios de inmuebles que se publican de forma abierta en portales inmobiliarios. Pueden incluir datos
+    personales que el propio anunciante ha hecho públicos para difundir su oferta: el texto y las fotos del anuncio, la
+    ubicación y el precio del inmueble y, si los publica, su nombre y su teléfono. La fuente de estos datos son esos
+    portales de acceso público.
+  </p>
+
+  <h2>3. Para qué y con qué base legal</h2>
+  <table>
+    <thead>
+      <tr><th>Finalidad</th><th>Base legal</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Crear y gestionar tu cuenta y prestarte el servicio contratado o la prueba gratuita.</td>
+        <td>Ejecución del contrato (art. 6.1.b RGPD).</td>
+      </tr>
+      <tr>
+        <td>
+          Enviarte emails transaccionales: verificación de la cuenta, restablecimiento de contraseña, avisos sobre tu
+          prueba, tu plan o tus pagos.
+        </td>
+        <td>Ejecución del contrato (art. 6.1.b RGPD).</td>
+      </tr>
+      <tr>
+        <td>Cobrar las suscripciones y emitir facturas.</td>
+        <td>Ejecución del contrato y obligaciones legales fiscales y mercantiles (art. 6.1.b y 6.1.c RGPD).</td>
+      </tr>
+      <tr>
+        <td>
+          Detectar anuncios de particulares, puntuarlos y mostrarlos a los profesionales cuyas alertas encajan con ellos.
+        </td>
+        <td>
+          Interés legítimo (art. 6.1.f RGPD) de Captapisos y de sus clientes en conocer ofertas inmobiliarias publicadas
+          abiertamente por sus propios anunciantes para darlas a conocer.
+        </td>
+      </tr>
+      <tr>
+        <td>Proteger el servicio frente a abusos y garantizar su seguridad.</td>
+        <td>Interés legítimo (art. 6.1.f RGPD).</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    Sobre los datos de los anuncios: hemos valorado que el anunciante los ha publicado precisamente para que los
+    profesionales y los interesados conozcan su oferta; solo usamos lo necesario, los conservamos poco tiempo (ver el
+    apartado 6) y atendemos de inmediato cualquier oposición. Como no tenemos un medio propio para contactar con cada
+    anunciante, publicamos esta información de forma accesible (art. 14.5.b RGPD).
+  </p>
+  <p>
+    La puntuación de particular es una clasificación automática de anuncios. No tomamos con ella decisiones que
+    produzcan efectos jurídicos sobre nadie.
+  </p>
+
+  <h2>4. Con quién compartimos los datos</h2>
+  <p>No vendemos datos personales. Los comparten con nosotros, como encargados del tratamiento y bajo contrato:</p>
+  <ul>
+    <li><strong>Stripe</strong>, para procesar los pagos y gestionar las suscripciones.</li>
+    <li><strong>[PROVEEDOR DE EMAIL]</strong>, para enviar los emails transaccionales.</li>
+    <li><strong>[PROVEEDOR DE ALOJAMIENTO]</strong>, donde funcionan nuestros servidores y bases de datos.</li>
+    <li>
+      <strong>OpenAI</strong>, cuando se usa la revisión con IA: analiza el texto de los anuncios y, si lo activas, tu
+      criterio de búsqueda. Según sus condiciones para la API, no usa estos datos para entrenar sus modelos.
+    </li>
+  </ul>
+  <p>
+    Además, los clientes de Captapisos ven los avisos de los anuncios que encajan con sus alertas. Cuando un profesional
+    contacta con un anunciante, lo hace bajo su propia responsabilidad y con sus propias obligaciones de protección de
+    datos.
+  </p>
+  <p>También podremos comunicar datos a las autoridades cuando una ley nos obligue.</p>
+
+  <h2>5. Transferencias internacionales</h2>
+  <p>
+    Algunos proveedores (como Stripe u OpenAI) pueden tratar datos fuera del Espacio Económico Europeo. En esos casos,
+    la transferencia se ampara en el Marco de Privacidad de Datos UE-EE. UU. o en las cláusulas contractuales tipo
+    aprobadas por la Comisión Europea.
+  </p>
+
+  <h2>6. Cuánto tiempo los guardamos</h2>
+  <ul>
+    <li>
+      <strong>Datos de cuenta y de uso:</strong> mientras tengas una cuenta. Si la borras, eliminamos tus datos, salvo los
+      que debamos guardar por obligación legal (por ejemplo, las facturas, durante los plazos que marca la normativa
+      fiscal y mercantil).
+    </li>
+    <li><strong>Avisos descartados:</strong> se borran a los 30 días.</li>
+    <li>
+      <strong>Anuncios que ya no siguen publicados:</strong> se borran a los 90 días de dejar de verlos en el portal,
+      junto con sus avisos, salvo los que hayas marcado como «Contactado», que se conservan mientras tengas cuenta porque
+      forman parte de tu seguimiento.
+    </li>
+    <li><strong>Registros técnicos:</strong> durante [PLAZO], salvo que hagan falta para investigar un incidente.</li>
+  </ul>
+
+  <h2>7. Tus derechos</h2>
+  <p>
+    Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y
+    portabilidad escribiendo a <a href={`mailto:${EMAIL_CONTACTO}`}>{EMAIL_CONTACTO}</a>. Puede que te pidamos
+    acreditar tu identidad.
+  </p>
+  <p>
+    Si has publicado un anuncio y no quieres que aparezca en Captapisos, escríbenos indicando el anuncio (por ejemplo,
+    su enlace) y dejaremos de tratarlo.
+  </p>
+  <p>
+    Si crees que no hemos atendido bien tus derechos, puedes reclamar ante la Agencia Española de Protección de Datos
+    (<a href="https://www.aepd.es/" target="_blank" rel="noopener">www.aepd.es</a>).
+  </p>
+
+  <h2>8. Seguridad</h2>
+  <p>
+    Aplicamos medidas técnicas y organizativas razonables para proteger los datos: conexiones cifradas, contraseñas
+    guardadas con funciones de hash, acceso restringido y borrado por plazos.
+  </p>
+
+  <h2>9. Cambios</h2>
+  <p>
+    Si cambiamos esta política de forma relevante, te avisaremos por email o en el propio servicio.
+  </p>
+</Legal>

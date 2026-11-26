@@ -1,0 +1,148 @@
+---
+import Icon, { type IconName } from '../components/Icon.astro'
+
+const FILTROS: { icono: IconName; titulo: string; texto: string }[] = [
+  {
+    icono: 'pin',
+    titulo: 'Tu zona, al nivel que trabajes',
+    texto: 'Provincia, municipio, distrito o barrio. Cada zona incluye todo lo que hay dentro.',
+  },
+  {
+    icono: 'ajustes',
+    titulo: 'Los pisos que te interesan',
+    texto: 'Venta o alquiler, precio, habitaciones y metros cuadrados.',
+  },
+  {
+    icono: 'etiqueta',
+    titulo: 'Etiquetas para captar',
+    texto: 'Exige que el anuncio diga «Abstenerse agencias», o que sea una herencia, urgente o para reformar.',
+  },
+  {
+    icono: 'persona',
+    titulo: 'Solo propietarios, o también dudosos',
+    texto: 'Recibe solo lo que puntúa como particular, o incluye los anuncios dudosos para revisarlos tú.',
+  },
+]
+
+const ETIQUETAS = [
+  { label: 'Abstenerse agencias', activa: true },
+  { label: 'Herencia', activa: false },
+  { label: 'Urgente', activa: false },
+  { label: 'Para reformar', activa: true },
+  { label: 'Trato directo', activa: false },
+  { label: 'Precio negociable', activa: false },
+]
+---
+
+<section id="alertas" class="seccion" aria-labelledby="alertas-titulo">
+  <div class="marco grid gap-12 py-20 sm:py-24 lg:grid-cols-[1fr_1fr] lg:gap-16">
+    <div>
+      <span class="antetitulo">04 · Alertas</span>
+      <h2 id="alertas-titulo" class="titulo-1 mt-5">Tu zona, vigilada sin descanso.</h2>
+      <p class="entradilla mt-5">
+        Una alerta es la combinación de zona y filtros que trabajas. Puedes tener varias, cada una con su nombre, y
+        cada aviso te dice de qué alerta viene.
+      </p>
+      <ul class="mt-10 grid gap-x-8 gap-y-7 sm:grid-cols-2">
+        {
+          FILTROS.map((f) => (
+            <li>
+              <Icon name={f.icono} class="size-5 text-tinta" />
+              <h3 class="mt-3 font-semibold tracking-[-0.01em]">{f.titulo}</h3>
+              <p class="mt-1 text-pequeno text-tinta-suave">{f.texto}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <!-- Alerta de ejemplo: ilustración, no es un formulario. -->
+    <figure class="min-w-0 self-center" aria-labelledby="alerta-pie">
+      <div class="tarjeta overflow-hidden" aria-hidden="true">
+        <div class="flex items-center justify-between gap-3 border-b border-linea px-5 py-4 sm:px-6">
+          <span class="inline-flex items-center gap-2 font-semibold tracking-[-0.01em]">
+            <Icon name="campana" class="size-4" />
+            Chamberí, 3 hab.
+          </span>
+          <span class="chip chip-ejemplo">Ejemplo</span>
+        </div>
+
+        <div class="space-y-5 px-5 py-5 sm:px-6">
+          <div>
+            <div class="etiqueta text-[11px] text-tinta-suave">Operación</div>
+            <div class="mt-2 inline-flex rounded-full border border-linea p-0.5 text-pequeno">
+              <span class="rounded-full bg-tinta px-3.5 py-1 font-medium text-fondo">Venta</span>
+              <span class="px-3.5 py-1 text-tinta-suave">Alquiler</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="etiqueta text-[11px] text-tinta-suave">Zona</div>
+            <div class="mt-2 flex h-11 items-center gap-2 rounded-tarjeta border border-linea px-3.5 text-[15px]">
+              <Icon name="pin" class="size-4 text-tinta-suave" />
+              <span class="font-medium">Chamberí</span>
+              <span class="ml-auto hidden truncate font-mono sm:inline text-[11px] tracking-[0.04em] text-tinta-suave">
+                Madrid › Madrid › Distrito
+              </span>
+            </div>
+            <ol class="mt-2 flex flex-wrap items-center gap-1 font-mono text-[11px] tracking-[0.04em] text-tinta-suave uppercase">
+              <li>Provincia</li><li>›</li><li>Municipio</li><li>›</li><li class="text-senal-texto">Distrito</li><li>›</li><li>Barrio</li>
+            </ol>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
+            {
+              [
+                ['Precio', 'Hasta 450.000 €'],
+                ['Hab.', '3 o más'],
+                ['Sup.', 'Desde 70 m²'],
+              ].map(([k, v]) => (
+                <div class:list={['min-w-0', k === 'Precio' && 'col-span-2 sm:col-span-1']}>
+                  <div class="etiqueta text-[11px] text-tinta-suave">{k}</div>
+                  <div class="mt-2 truncate rounded-tarjeta border border-linea px-2.5 py-2.5 text-[13px] sm:px-3 sm:text-pequeno">
+                    {v}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+
+          <div>
+            <div class="etiqueta text-[11px] text-tinta-suave">Etiquetas</div>
+            <ul class="mt-2 flex flex-wrap gap-1.5">
+              {
+                ETIQUETAS.map((e) => (
+                  <li class:list={['chip', e.activa ? 'chip-borde' : 'chip-neutro']}>
+                    {e.activa && <Icon name="check" class="size-3" />}
+                    {e.label}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <div class="grid gap-2 sm:grid-cols-2">
+            <div class="rounded-tarjeta border border-tinta px-3.5 py-3">
+              <div class="flex items-center gap-2 text-pequeno font-medium">
+                <span class="grid size-4 place-items-center rounded-full border border-tinta"><span class="size-2 rounded-full bg-tinta"></span></span>
+                Solo propietarios
+              </div>
+              <p class="mt-1 pl-6 text-[13px] text-tinta-suave">Puntuación de 70 o más.</p>
+            </div>
+            <div class="rounded-tarjeta border border-linea px-3.5 py-3">
+              <div class="flex items-center gap-2 text-pequeno font-medium">
+                <span class="size-4 rounded-full border border-linea-fuerte"></span>
+                Incluir dudosos
+              </div>
+              <p class="mt-1 pl-6 text-[13px] text-tinta-suave">Desde 50 puntos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <figcaption id="alerta-pie" class="mt-4 px-1 text-[13px] text-tinta-suave">
+        <span class="etiqueta mr-1 text-[11px]">Ejemplo</span> Alerta de venta en el distrito de Chamberí (Madrid), hasta 450.000 €, 3 habitaciones o más, desde 70 m²,
+        con las etiquetas «Abstenerse agencias» y «Para reformar», solo propietarios.
+      </figcaption>
+    </figure>
+  </div>
+</section>

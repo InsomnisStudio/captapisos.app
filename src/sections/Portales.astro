@@ -1,0 +1,44 @@
+---
+import Icon from '../components/Icon.astro'
+import { PORTALES } from '../lib/portales'
+---
+
+<section id="portales" class="seccion bg-fondo-alt" aria-labelledby="portales-titulo">
+  <div class="marco grid gap-10 py-20 sm:py-24 lg:grid-cols-[1fr_1fr] lg:gap-16">
+    <div>
+      <span class="antetitulo">08 · Pronto, más portales</span>
+      <h2 id="portales-titulo" class="titulo-1 mt-5">Hoy, idealista. Pronto, más portales.</h2>
+      <p class="entradilla mt-5 max-w-lg">
+        Empezamos por los anuncios publicados en idealista. Estamos preparando la vigilancia de otros portales para que
+        un mismo particular te llegue esté donde esté.
+      </p>
+    </div>
+    <ul class="reticula self-center" aria-label="Portales">
+      {
+        PORTALES.map((p) => (
+          <li class="flex items-center justify-between gap-4 px-5 py-4 sm:px-6">
+            <a
+              href={p.url}
+              target="_blank"
+              rel="noopener"
+              class="group inline-flex items-center gap-1.5 rounded-[6px] text-[17px] font-medium underline-offset-4 hover:underline focus-visible:underline"
+            >
+              {p.nombre}
+              <Icon name="externo" class="size-3.5 text-tinta-suave transition-colors group-hover:text-tinta" />
+              <span class="sr-only">(abre la web de {p.nombre} en una pestaña nueva)</span>
+            </a>
+            {p.activo ? (
+              <span class="chip chip-nuevo">
+                <span class="punto-senal size-1.5" />
+                Ya disponible
+              </span>
+            ) : (
+              <span class="chip chip-neutro">Próximamente</span>
+            )}
+          </li>
+        ))
+      }
+      <li class="px-5 py-4 text-pequeno text-tinta-suave sm:px-6">Y otros portales que iremos sumando.</li>
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,53 @@
+---
+import Icon, { type IconName } from '../components/Icon.astro'
+
+const PUNTOS: { icono: IconName; titulo: string; texto: string }[] = [
+  {
+    icono: 'edificio',
+    titulo: 'Mucho anuncio de agencia',
+    texto:
+      'Los pisos de particulares están en los portales, pero mezclados con los de agencias y promotoras. Encontrarlos a mano es revisar anuncio por anuncio, cada día.',
+  },
+  {
+    icono: 'persona',
+    titulo: 'La marca del portal no basta',
+    texto:
+      'Hay agencias que publican como particular y particulares con anuncios poco claros. Para saber quién hay detrás hay que mirar más cosas que una casilla.',
+  },
+  {
+    icono: 'reloj',
+    titulo: 'Llegar tarde es no llegar',
+    texto:
+      'En cuanto el propietario publica, empiezan las llamadas. Si lo ves mañana, ya le habrán llamado otros.',
+  },
+]
+---
+
+<section id="problema" class="seccion bg-fondo-alt" aria-labelledby="problema-titulo">
+  <div class="marco py-20 sm:py-24">
+    <div class="grid gap-6 lg:grid-cols-[1fr_1fr] lg:gap-16">
+      <div>
+        <span class="antetitulo">01 · El problema</span>
+        <h2 id="problema-titulo" class="titulo-1 mt-5 max-w-xl">
+          Casi todo lo que ves en los portales lo publica una agencia.
+        </h2>
+      </div>
+      <p class="entradilla max-w-xl self-end">
+        Al propietario que publica su piso no le llama una agencia: le llaman varias. La que llama primero, y bien, tiene más
+        papeletas para quedarse el encargo. El reto no es llamar más: es enterarte antes y saber a quién llamas.
+      </p>
+    </div>
+
+    <ul class="reticula mt-12 md:grid-cols-3">
+      {
+        PUNTOS.map((p) => (
+          <li class="p-6 sm:p-7">
+            <Icon name={p.icono} class="size-6 text-tinta" />
+            <h3 class="titulo-3 mt-5">{p.titulo}</h3>
+            <p class="mt-2 text-pequeno text-tinta-suave">{p.texto}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

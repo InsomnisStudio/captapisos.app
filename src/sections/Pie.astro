@@ -1,0 +1,85 @@
+---
+import Logo from '../components/Logo.astro'
+import { EMAIL_CONTACTO, URL_LOGIN, URL_REGISTRO } from '../lib/config'
+import { PORTALES } from '../lib/portales'
+
+const anio = new Date().getFullYear()
+const COLUMNAS = [
+  {
+    titulo: 'Producto',
+    enlaces: [
+      { href: '/#como-funciona', label: 'Cómo funciona' },
+      { href: '/#el-aviso', label: 'El aviso' },
+      { href: '/#alertas', label: 'Alertas' },
+      { href: '/#en-directo', label: 'En directo' },
+      { href: '/#precios', label: 'Precios' },
+      { href: '/#preguntas', label: 'Preguntas' },
+    ],
+  },
+  {
+    titulo: 'Cuenta',
+    enlaces: [
+      { href: URL_REGISTRO, label: 'Prueba gratis 7 días' },
+      { href: URL_LOGIN, label: 'Entrar' },
+    ],
+  },
+  {
+    titulo: 'Legal',
+    enlaces: [
+      { href: '/terminos', label: 'Términos y condiciones' },
+      { href: '/privacidad', label: 'Privacidad' },
+      { href: '/aviso-legal', label: 'Aviso legal' },
+      { href: '/cookies', label: 'Cookies' },
+    ],
+  },
+]
+---
+
+<footer class="border-t border-linea bg-fondo-alt">
+  <div class="marco grid gap-10 py-14 sm:grid-cols-3 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+    <div class="sm:col-span-3 lg:col-span-1">
+      <Logo size={28} />
+      <p class="mt-4 max-w-xs text-pequeno text-tinta-suave">
+        Alertas de pisos publicados por particulares, para agentes y agencias inmobiliarias.
+      </p>
+      <p class="mt-4 text-pequeno">
+        <span class="etiqueta mr-2 text-[11px] text-tinta-suave">Contacto</span>
+        <a href={`mailto:${EMAIL_CONTACTO}`} class="underline underline-offset-4 hover:text-senal-texto">{EMAIL_CONTACTO}</a>
+      </p>
+    </div>
+    {
+      COLUMNAS.map((c) => (
+        <nav aria-label={c.titulo}>
+          <h2 class="etiqueta text-[11px] text-tinta-suave">{c.titulo}</h2>
+          <ul class="mt-4 space-y-2.5 text-pequeno">
+            {c.enlaces.map((e) => (
+              <li>
+                <a href={e.href} class="hover:text-senal-texto">
+                  {e.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ))
+    }
+  </div>
+  <div class="border-t border-linea">
+    <div class="marco flex flex-col gap-2 py-6 text-[12px] text-tinta-suave sm:flex-row sm:items-center sm:justify-between">
+      <p class="etiqueta text-[11px]">© {anio} Captapisos · Llega primero al propietario</p>
+      <p>
+        {
+          PORTALES.map((p, i) => (
+            <>
+              <a href={p.url} target="_blank" rel="noopener" class="underline-offset-4 hover:text-tinta hover:underline">
+                {p.nombre}
+              </a>
+              {i < PORTALES.length - 2 ? ', ' : i === PORTALES.length - 2 ? ' y ' : ''}
+            </>
+          ))
+        }{' '}
+        son marcas de sus respectivos titulares.
+      </p>
+    </div>
+  </div>
+</footer>

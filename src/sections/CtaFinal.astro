@@ -1,0 +1,26 @@
+---
+import Icon from '../components/Icon.astro'
+import Simbolo from '../components/Simbolo.astro'
+import { URL_LOGIN, URL_REGISTRO } from '../lib/config'
+---
+
+<section id="empieza" class="seccion" aria-labelledby="cta-titulo">
+  <div class="marco py-20 sm:py-28">
+    <div class="bloque papel-milimetrado relative overflow-hidden bg-fondo px-6 py-14 text-center sm:px-12 sm:py-20">
+      <Simbolo class="mx-auto h-12 w-12 text-tinta" />
+      <h2 id="cta-titulo" class="display mx-auto mt-8 max-w-3xl">
+        Llámale <span class="text-senal">hoy.</span> Mañana ya le habrán llamado otros.
+      </h2>
+      <p class="entradilla mx-auto mt-6 max-w-xl">
+        Crea tu cuenta, configura tu primera alerta y empieza a recibir los pisos de particulares de tu zona. 7 días gratis, sin tarjeta.
+      </p>
+      <div class="mt-9 flex flex-wrap justify-center gap-3">
+        <a href={URL_REGISTRO} class="btn btn-primario">
+          Empieza tu prueba gratis · 7 días
+          <Icon name="flecha" />
+        </a>
+        <a href={URL_LOGIN} class="btn btn-secundario">Ya tengo cuenta</a>
+      </div>
+    </div>
+  </div>
+</section>

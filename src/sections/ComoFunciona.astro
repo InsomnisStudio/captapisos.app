@@ -1,0 +1,58 @@
+---
+import Icon, { type IconName } from '../components/Icon.astro'
+
+const PASOS: { icono: IconName; titulo: string; texto: string; nuevo?: boolean }[] = [
+  {
+    icono: 'pin',
+    titulo: 'Elige tus zonas',
+    texto:
+      'Crea una alerta con la provincia, el municipio, el distrito o el barrio que trabajas. Añade precio, habitaciones, metros y etiquetas si quieres afinar.',
+  },
+  {
+    icono: 'buscar',
+    titulo: 'Vigilamos los anuncios nuevos',
+    texto:
+      'Revisamos sin descanso los anuncios que se publican en portales como idealista, en toda España, y detectamos los nuevos a los pocos minutos de publicarse.',
+  },
+  {
+    icono: 'ajustes',
+    titulo: 'Separamos particular de agencia',
+    texto:
+      'Cada anuncio recibe una puntuación de 0 a 100 con lo que declara el portal y las señales del propio anuncio. Si lo activas, una IA revisa además el texto.',
+  },
+  {
+    icono: 'campana',
+    titulo: 'Te avisamos en directo',
+    texto:
+      'El aviso aparece en tu portal sin recargar, con la ubicación exacta, la puntuación y sus motivos. Tú decides a quién llamas.',
+    nuevo: true,
+  },
+]
+---
+
+<section id="como-funciona" class="seccion" aria-labelledby="como-titulo">
+  <div class="marco py-20 sm:py-24">
+    <span class="antetitulo">02 · Cómo funciona</span>
+    <h2 id="como-titulo" class="titulo-1 mt-5 max-w-2xl">De anuncio publicado a aviso en tu pantalla, en cuatro pasos.</h2>
+
+    <ol class="reticula mt-12 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        PASOS.map((p, i) => (
+          <li class="flex flex-col p-6 sm:p-7">
+            <div class="flex items-center justify-between">
+              <span class="etiqueta text-senal-texto">{String(i + 1).padStart(2, '0')}</span>
+              <span class="relative">
+                <Icon name={p.icono} class="size-6 text-tinta" />
+                {p.nuevo && (
+                  <span class="punto-senal absolute -top-0.5 -right-0.5 size-2 ring-2 ring-fondo" aria-hidden="true" />
+                )}
+              </span>
+            </div>
+            <h3 class="titulo-3 mt-8">{p.titulo}</h3>
+            <p class="mt-2 text-pequeno text-tinta-suave">{p.texto}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

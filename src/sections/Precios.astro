@@ -1,0 +1,178 @@
+---
+import Icon from '../components/Icon.astro'
+import { EMAIL_CONTACTO, URL_REGISTRO } from '../lib/config'
+
+/*
+ * Precios fijos: la landing es estática. La fuente de verdad es el backend, en
+ * backend/crates/server/src/plans.rs (repo del portal), que los sirve en GET /api/plans
+ * (docs/front-cuenta-y-planes.md §1). Si cambian allí, hay que cambiarlos aquí.
+ * Precios sin IVA; el anual son 10 mensualidades (2 meses gratis).
+ */
+const PRUEBA = { dias: 7, alertas: 1, iaDiaria: 30 }
+
+const PLANES = [
+  {
+    codigo: 'agente',
+    nombre: 'Agente',
+    para: 'Para el agente que trabaja su zona.',
+    mes: 49,
+    anio: 490,
+    destacado: false,
+    incluye: [
+      '3 alertas activas',
+      'Avisos en tiempo real, sin recargar',
+      'Puntuación de particular con sus motivos',
+      'Etiquetas: «Abstenerse agencias», «Herencia», «Urgente»…',
+      'Estado de cada aviso: sin ver, contactado, descartado',
+    ],
+  },
+  {
+    codigo: 'pro',
+    nombre: 'Pro',
+    para: 'Para quien vigila varias zonas y quiere afinar más.',
+    mes: 99,
+    anio: 990,
+    destacado: true,
+    incluye: [
+      'Todo lo del plan Agente',
+      'Alertas ilimitadas',
+      'Criterio con IA: describe con tus palabras qué debe tener el anuncio y la IA lo comprueba',
+      'Hasta 300 comprobaciones con IA al día',
+    ],
+  },
+]
+
+const euros = (n: number) => `${String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.')} €`
+const asunto = encodeURIComponent('Captapisos para agencias')
+---
+
+<section id="precios" class="precios seccion bg-fondo-alt" aria-labelledby="precios-titulo">
+  <div class="marco py-20 sm:py-24">
+    <div class="grid gap-6 lg:grid-cols-[1fr_1fr] lg:gap-16">
+      <div>
+        <span class="antetitulo">06 · Precios</span>
+        <h2 id="precios-titulo" class="titulo-1 mt-5 max-w-xl">Pruébalo 7 días gratis. Luego, el plan que te encaje.</h2>
+      </div>
+      <div class="self-end">
+        <p class="entradilla max-w-xl">
+          La prueba no pide tarjeta: {PRUEBA.dias} días con {PRUEBA.alertas} alerta activa para ver cómo te llegan los
+          particulares de tu zona. Sin permanencia: cancelas desde tu cuenta cuando quieras.
+        </p>
+      </div>
+    </div>
+
+    <fieldset class="periodo mt-10 inline-flex rounded-full border border-linea bg-fondo p-1">
+      <legend class="sr-only">Periodo de facturación</legend>
+      <label class="opcion cursor-pointer rounded-full px-4 py-2 text-pequeno font-medium text-tinta-suave">
+        <input type="radio" name="periodo" value="mensual" class="sr-only" checked />
+        Mensual
+      </label>
+      <label class="opcion inline-flex cursor-pointer items-center gap-2 rounded-full px-4 py-2 text-pequeno font-medium text-tinta-suave">
+        <input type="radio" name="periodo" value="anual" class="sr-only" />
+        Anual
+        <span class="chip chip-nuevo h-5 px-1.5 text-[10px]">2 meses gratis</span>
+      </label>
+    </fieldset>
+
+    <div class="mt-6 grid gap-4 lg:grid-cols-3">
+      {
+        PLANES.map((p) => (
+          <article
+            class:list={[
+              'tarjeta relative flex flex-col p-6 sm:p-7',
+              p.destacado && 'border-tinta shadow-[0_0_0_1px_var(--color-tinta)]',
+            ]}
+            aria-labelledby={`plan-${p.codigo}`}
+          >
+            <div class="flex items-center justify-between gap-3">
+              <h3 id={`plan-${p.codigo}`} class="titulo-3">
+                {p.nombre}
+              </h3>
+              {p.destacado && <span class="chip chip-borde">Recomendado</span>}
+            </div>
+            <p class="mt-1 text-pequeno text-tinta-suave lg:min-h-10">{p.para}</p>
+
+            <div class="mt-6">
+              <p class="precio-mes">
+                <span class="cifra text-[44px] leading-none">{euros(p.mes)}</span>
+                <span class="mt-2 block text-pequeno text-tinta-suave">al mes · sin IVA</span>
+              </p>
+              <p class="precio-anio">
+                <span class="cifra text-[44px] leading-none">{euros(p.anio)}</span>
+                <span class="mt-2 block text-pequeno text-tinta-suave">al año · sin IVA · 2 meses gratis</span>
+              </p>
+            </div>
+
+            <ul class="mt-6 mb-8 space-y-2.5 border-t border-linea pt-5 text-pequeno">
+              {p.incluye.map((i) => (
+                <li class="flex gap-2.5">
+                  <Icon name="check" class="mt-0.5 size-4 shrink-0 text-tinta" />
+                  <span>{i}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={URL_REGISTRO}
+              class:list={[
+                'btn mt-auto h-auto min-h-11 w-full py-2.5 text-center whitespace-normal',
+                p.destacado ? 'btn-primario' : 'btn-secundario',
+              ]}
+            >
+              <span>
+                Empieza tu prueba <span class="whitespace-nowrap">gratis · 7 días</span>
+              </span>
+            </a>
+          </article>
+        ))
+      }
+
+      <article class="tarjeta flex flex-col p-6 sm:p-7" aria-labelledby="plan-agencia">
+        <div class="flex items-center justify-between gap-3">
+          <h3 id="plan-agencia" class="titulo-3">Agencia</h3>
+          <span class="chip chip-neutro">Varios usuarios</span>
+        </div>
+        <p class="mt-1 text-pequeno text-tinta-suave lg:min-h-10">Para oficinas y asesorías con un equipo de captación.</p>
+        <div class="mt-6">
+          <p class="cifra text-[44px] leading-none">Hablemos</p>
+          <span class="mt-2 block text-pequeno text-tinta-suave">Escríbenos y lo vemos contigo</span>
+        </div>
+        <ul class="mt-6 mb-8 space-y-2.5 border-t border-linea pt-5 text-pequeno">
+          <li class="flex gap-2.5">
+            <Icon name="check" class="mt-0.5 size-4 shrink-0 text-tinta" /><span>Varios usuarios en la misma cuenta</span>
+          </li>
+          <li class="flex gap-2.5">
+            <Icon name="check" class="mt-0.5 size-4 shrink-0 text-tinta" /><span>Condiciones según el tamaño de tu equipo</span>
+          </li>
+        </ul>
+        <a
+          href={`mailto:${EMAIL_CONTACTO}?subject=${asunto}`}
+          class="btn btn-secundario mt-auto h-auto min-h-11 w-full py-2.5 text-center whitespace-normal"
+        >
+          Escríbenos
+        </a>
+      </article>
+    </div>
+
+    <p class="mt-6 text-[13px] text-tinta-suave">
+      Precios sin IVA (se añade el 21 % al pagar). Prueba gratuita de {PRUEBA.dias} días sin tarjeta, con{' '}
+      {PRUEBA.alertas} alerta activa y criterio con IA ({PRUEBA.iaDiaria} comprobaciones al día). Al terminar, tus alertas
+      se pausan hasta que elijas un plan: no hay cobros automáticos.
+    </p>
+  </div>
+</section>
+
+<style>
+  /* Mensual / Anual con radios, sin JS. */
+  .precio-anio { display: none; }
+  .precios:has(input[value='anual']:checked) .precio-mes { display: none; }
+  .precios:has(input[value='anual']:checked) .precio-anio { display: block; }
+  .opcion:has(input:checked) {
+    background: var(--color-tinta);
+    color: var(--color-fondo);
+  }
+  .opcion:has(input:focus-visible) {
+    outline: 2px solid var(--color-senal);
+    outline-offset: 2px;
+  }
+</style>

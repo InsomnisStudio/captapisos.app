@@ -1,0 +1,141 @@
+---
+import Icon, { type IconName } from '../components/Icon.astro'
+
+// Feed de ejemplo: datos inventados para ilustrar cómo llegan los avisos.
+type Item = { titulo: string; zona: string; precio: string; puntos: number; hace: string }
+const INICIALES: Item[] = [
+  { titulo: 'Piso de 4 hab. con balcón', zona: 'Triana · Sevilla', precio: '265.000 €', puntos: 84, hace: 'hace 6 min' },
+  { titulo: 'Piso de 2 hab. reformado', zona: 'Delicias · Zaragoza', precio: '178.000 €', puntos: 79, hace: 'hace 14 min' },
+  { titulo: 'Casa de 3 hab. con jardín', zona: 'Algorta · Getxo · Bizkaia', precio: '495.000 €', puntos: 91, hace: 'hace 22 min' },
+]
+// Los que «llegan» mientras miras la página.
+const NUEVOS: Item[] = [
+  { titulo: 'Ático de 2 hab. con terraza', zona: 'Russafa · Valencia', precio: '289.000 €', puntos: 90, hace: 'hace 1 min' },
+  { titulo: 'Piso de 3 hab. exterior', zona: 'Gràcia · Barcelona', precio: '455.000 €', puntos: 86, hace: 'hace 1 min' },
+  { titulo: 'Piso de 3 hab. para reformar', zona: 'El Ensanche · Alicante', precio: '199.000 €', puntos: 88, hace: 'hace 1 min' },
+]
+
+const PUNTOS: { icono: IconName; titulo: string; texto: string }[] = [
+  { icono: 'rayo', titulo: 'Sin recargar', texto: 'El aviso aparece arriba en cuanto lo detectamos, marcado en naranja.' },
+  {
+    icono: 'campana',
+    titulo: 'Aunque estés en otra pestaña',
+    texto: 'Si lo permites, el navegador te muestra una notificación con el piso y el precio.',
+  },
+  { icono: 'ojo', titulo: 'Sabes qué te falta', texto: 'La pestaña cuenta los avisos que aún no has visto.' },
+]
+---
+
+<section id="en-directo" class="seccion oscuro relative overflow-hidden bg-fondo-alt text-tinta" aria-labelledby="directo-titulo">
+  <!-- Brillo Señal → Ascua: solo en modo oscuro y piezas de campaña. -->
+  <div
+    class="pointer-events-none absolute -top-64 -right-56 size-[420px] rounded-full opacity-50 blur-3xl sm:-top-40 sm:-right-40 sm:size-[520px] sm:opacity-70"
+    style="background: radial-gradient(circle at 40% 40%, var(--color-senal), var(--color-ascua) 45%, transparent 70%);"
+    aria-hidden="true"
+  >
+  </div>
+  <div class="marco relative grid gap-12 py-20 sm:py-24 lg:grid-cols-[1fr_1fr] lg:gap-16">
+    <div>
+      <span class="antetitulo en-vivo">05 · En directo</span>
+      <p class="mt-6 font-mono text-sm tracking-[0.4em] text-tinta-suave uppercase">Minuto cero</p>
+      <h2 id="directo-titulo" class="titulo-1 mt-3">Cada piso, en el minuto cero.</h2>
+      <p class="entradilla mt-5 max-w-lg">
+        Tu portal se actualiza solo. No tienes que buscar ni refrescar: cuando un particular publica en tu zona, el aviso
+        te llega a los pocos minutos.
+      </p>
+      <ul class="mt-10 space-y-6">
+        {
+          PUNTOS.map((p) => (
+            <li class="grid grid-cols-[1.5rem_1fr] gap-3">
+              <Icon name={p.icono} class="mt-0.5 size-5 text-tinta" />
+              <div>
+                <h3 class="font-semibold tracking-[-0.01em]">{p.titulo}</h3>
+                <p class="mt-1 text-pequeno text-tinta-suave">{p.texto}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <figure class="min-w-0 self-center">
+      <div class="bloque overflow-hidden">
+        <div class="flex items-center justify-between gap-3 border-b border-linea px-4 py-3 sm:px-5">
+          <span class="antetitulo en-vivo">Novedades</span>
+          <span class="chip chip-ejemplo">Ejemplo</span>
+        </div>
+        <ol class="feed divide-y divide-linea" aria-label="Feed de ejemplo" data-nuevos={JSON.stringify(NUEVOS)}>
+          {
+            INICIALES.map((it) => (
+              <li class="flex items-center gap-4 px-4 py-4 sm:px-5">
+                <div class="min-w-0 flex-1">
+                  <p class="truncate font-medium">{it.titulo}</p>
+                  <p class="truncate text-pequeno text-tinta-suave">{it.zona}</p>
+                </div>
+                <div class="shrink-0 text-right">
+                  <p class="cifra">{it.precio}</p>
+                  <p class="font-mono text-[11px] text-tinta-suave">{it.hace}</p>
+                </div>
+                <span class="cifra grid size-9 shrink-0 place-items-center rounded-full border border-linea text-[13px]">
+                  {it.puntos}
+                </span>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+      <figcaption class="mt-4 px-1 text-[13px] text-tinta-suave">
+        <span class="etiqueta mr-1 text-[11px]">Ejemplo</span> Así se ve tu feed cuando llega un aviso. Datos inventados.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<template id="plantilla-aviso">
+  <li class="relative flex items-center gap-4 px-4 py-4 animate-llegada sm:px-5">
+    <span class="absolute inset-y-0 left-0 w-[3px] bg-senal" aria-hidden="true"></span>
+    <div class="min-w-0 flex-1">
+      <p class="flex items-center gap-2">
+        <span class="chip chip-senal">Nuevo</span>
+        <span class="titulo truncate font-medium"></span>
+      </p>
+      <p class="zona mt-0.5 truncate text-pequeno text-tinta-suave"></p>
+    </div>
+    <div class="shrink-0 text-right">
+      <p class="precio cifra"></p>
+      <p class="hace font-mono text-[11px] text-tinta-suave"></p>
+    </div>
+    <span class="puntos cifra grid size-9 shrink-0 place-items-center rounded-full border border-senal text-[13px]"></span>
+  </li>
+</template>
+
+<script>
+  // Simula la llegada de avisos en el feed de ejemplo. Sin movimiento si el usuario lo prefiere.
+  type Item = { titulo: string; zona: string; precio: string; puntos: number; hace: string }
+  const feed = document.querySelector<HTMLOListElement>('.feed')
+  const plantilla = document.querySelector<HTMLTemplateElement>('#plantilla-aviso')
+  const quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (feed && plantilla && !quieto) {
+    const nuevos: Item[] = JSON.parse(feed.dataset.nuevos ?? '[]')
+    let i = 0
+    let visible = true
+    new IntersectionObserver(([e]) => (visible = e.isIntersecting)).observe(feed)
+    const llega = () => {
+      if (!visible || document.hidden) return
+      const it = nuevos[i++ % nuevos.length]
+      const li = plantilla.content.firstElementChild!.cloneNode(true) as HTMLLIElement
+      li.querySelector('.titulo')!.textContent = it.titulo
+      li.querySelector('.zona')!.textContent = it.zona
+      li.querySelector('.precio')!.textContent = it.precio
+      li.querySelector('.hace')!.textContent = it.hace
+      li.querySelector('.puntos')!.textContent = String(it.puntos)
+      // El anterior «nuevo» pasa a normal: el naranja solo marca lo último.
+      feed.querySelectorAll('.chip-senal, .bg-senal').forEach((el) => el.remove())
+      feed.querySelectorAll('.border-senal').forEach((el) => el.classList.replace('border-senal', 'border-linea'))
+      feed.prepend(li)
+      while (feed.children.length > 3) feed.lastElementChild?.remove()
+    }
+    window.setTimeout(llega, 1500)
+    window.setInterval(llega, 5000)
+  }
+</script>

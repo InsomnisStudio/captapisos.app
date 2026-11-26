@@ -1,0 +1,39 @@
+---
+import Logo from '../components/Logo.astro'
+import { URL_LOGIN, URL_REGISTRO } from '../lib/config'
+
+const NAV = [
+  { href: '/#como-funciona', label: 'Cómo funciona' },
+  { href: '/#el-aviso', label: 'El aviso' },
+  { href: '/#alertas', label: 'Alertas' },
+  { href: '/#precios', label: 'Precios' },
+  { href: '/#preguntas', label: 'Preguntas' },
+]
+---
+
+<header class="sticky top-0 z-40 border-b border-linea bg-fondo/90 backdrop-blur-md supports-[backdrop-filter]:bg-fondo/80">
+  <div class="marco flex h-16 items-center gap-6">
+    <a href="/" class="-ml-1 shrink-0 rounded-md p-1 whitespace-nowrap" aria-label="Captapisos, ir al inicio">
+      <Logo size={26} />
+    </a>
+    <nav aria-label="Secciones" class="ml-2 hidden lg:block">
+      <ul class="flex items-center gap-1 text-pequeno">
+        {
+          NAV.map((n) => (
+            <li>
+              <a href={n.href} class="rounded-full px-3 py-2 text-tinta-suave transition-colors hover:bg-fondo-alt hover:text-tinta">
+                {n.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div class="ml-auto flex items-center gap-1.5 sm:gap-2">
+      <a href={URL_LOGIN} class="btn btn-sm btn-fantasma px-3 sm:px-4">Entrar</a>
+      <a href={URL_REGISTRO} class="btn btn-sm btn-primario">
+        Prueba gratis
+      </a>
+    </div>
+  </div>
+</header>

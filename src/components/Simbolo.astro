@@ -1,0 +1,13 @@
+---
+// Símbolo oficial (~/CaptapisosMarca/logos/captapisos-simbolo.svg): casa de un solo trazo grueso con
+// uniones redondeadas y el punto de señal dentro.
+interface Props {
+  class?: string
+}
+const { class: className = '' } = Astro.props
+---
+
+<svg viewBox="0 0 48 48" class={className} aria-hidden="true">
+  <path d="M7 21.5 24 7l17 14.5V41H7z" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linejoin="round"></path>
+  <circle cx="24" cy="29" r="6" class="fill-senal"></circle>
+</svg>

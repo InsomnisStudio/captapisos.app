@@ -1,0 +1,85 @@
+---
+import Icon from '../components/Icon.astro'
+import { EMAIL_CONTACTO } from '../lib/config'
+
+type Pregunta = { p: string; r: string; enlace?: { href: string; label: string } }
+
+const PREGUNTAS: Pregunta[] = [
+  {
+    p: '¿De dónde salen los anuncios?',
+    r: 'De los anuncios que se publican en portales inmobiliarios, hoy en idealista. Revisamos los nuevos de toda España y te avisamos de los que encajan con tus alertas. Pronto sumaremos más portales.',
+  },
+  {
+    p: '¿Cómo sabéis si un anuncio es de un particular?',
+    r: 'Combinamos lo que declara el portal con señales del propio anuncio: el nombre del anunciante, si lleva logo de agencia, cuántos anuncios tiene publicados, frases como «abstenerse agencias» o un estilo de redacción comercial. Todo suma o resta en una puntuación de 0 a 100, y en cada aviso ves los motivos.',
+  },
+  {
+    p: '¿Acertáis siempre?',
+    r: 'No, y por eso te enseñamos el porqué. Ningún sistema distingue a la perfección a un particular de una agencia que se hace pasar por uno. Los anuncios con señales contradictorias se quedan como dudosos: tú eliges si quieres recibirlos o solo los que puntúan como propietario.',
+  },
+  {
+    p: '¿Para qué se usa la IA?',
+    r: 'Es opcional. Si está activada, revisa el texto de los anuncios que ya parecen de particular o dudosos, nunca los de agencia, y su conclusión suma o resta como una señal más. El motivo aparece en el desglose del aviso.',
+  },
+  {
+    p: '¿Qué zonas puedo vigilar?',
+    r: 'Cualquier zona de España: una provincia entera, un municipio, un distrito o un barrio. Cada zona incluye todo lo que hay dentro.',
+  },
+  {
+    p: '¿Tengo que tener el portal abierto?',
+    r: 'Para ver los avisos en directo, sí: el feed se actualiza solo, sin recargar. Si lo tienes en otra pestaña y das permiso, el navegador te avisa con una notificación. Y lo que llegue mientras no estás te espera marcado como «sin ver».',
+  },
+  {
+    p: '¿Qué pasa cuando termina la prueba gratuita?',
+    r: 'Tus alertas se ponen en pausa hasta que elijas un plan. No hay cobros automáticos: para la prueba no te pedimos tarjeta. Mientras tanto puedes seguir entrando y consultar los avisos que ya te llegaron.',
+  },
+  {
+    p: '¿Cómo cancelo mi plan?',
+    r: 'Desde tu cuenta, cuando quieras, sin llamadas ni permanencia. Sigues teniendo acceso hasta el final del periodo que ya has pagado, mensual o anual; ese periodo en curso no se reembolsa.',
+  },
+  {
+    p: '¿Contactáis vosotros al propietario?',
+    r: 'No. Captapisos te avisa y te da los datos para llamar con criterio. La llamada, y cómo la haces, es cosa tuya.',
+  },
+  {
+    p: '¿Cómo os escribo?',
+    r: 'Para dudas, para el plan Agencia o para lo que necesites, escríbenos a',
+    enlace: { href: `mailto:${EMAIL_CONTACTO}`, label: EMAIL_CONTACTO },
+  },
+]
+---
+
+<section id="preguntas" class="seccion" aria-labelledby="preguntas-titulo">
+  <div class="marco grid gap-10 py-20 sm:py-24 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+    <div>
+      <span class="antetitulo">07 · Preguntas</span>
+      <h2 id="preguntas-titulo" class="titulo-1 mt-5">Lo que nos suelen preguntar.</h2>
+    </div>
+    <div class="divide-y divide-linea border-y border-linea">
+      {
+        PREGUNTAS.map((q) => (
+          <details class="group">
+            <summary class="flex cursor-pointer items-start justify-between gap-6 py-5 text-[17px] font-medium tracking-[-0.01em] hover:text-senal-texto">
+              {q.p}
+              <span class="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full border border-linea text-tinta-suave transition-transform group-open:rotate-45">
+                <Icon name="mas" class="size-3.5" />
+              </span>
+            </summary>
+            <p class="max-w-2xl pb-6 text-tinta-suave">
+              {q.r}
+              {q.enlace && (
+                <>
+                  {' '}
+                  <a href={q.enlace.href} class="font-medium text-tinta underline underline-offset-4 hover:text-senal-texto">
+                    {q.enlace.label}
+                  </a>
+                  .
+                </>
+              )}
+            </p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

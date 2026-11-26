@@ -1,0 +1,83 @@
+---
+import Legal from '../layouts/Legal.astro'
+import { EMAIL_CONTACTO } from '../lib/config'
+import { PORTALES } from '../lib/portales'
+---
+
+<Legal
+  titulo="Aviso legal"
+  descripcion="Datos del titular de Captapisos y condiciones de uso del sitio web."
+  actualizado="26 de noviembre de 2026"
+>
+  <h2>1. Titular del sitio web</h2>
+  <p>
+    En cumplimiento del artículo 10 de la Ley 34/2002, de servicios de la sociedad de la información y de comercio
+    electrónico (LSSI), estos son los datos del titular de este sitio web y del servicio Captapisos:
+  </p>
+  <ul>
+    <li><strong>Titular:</strong> [RAZÓN SOCIAL]</li>
+    <li><strong>NIF:</strong> [NIF]</li>
+    <li><strong>Domicilio:</strong> [DOMICILIO]</li>
+    <li>
+      <strong>Email:</strong> <a href={`mailto:${EMAIL_CONTACTO}`}>{EMAIL_CONTACTO}</a>
+    </li>
+    <li><strong>Datos registrales:</strong> [DATOS DE INSCRIPCIÓN EN EL REGISTRO MERCANTIL, SI PROCEDE]</li>
+  </ul>
+
+  <h2>2. Objeto</h2>
+  <p>
+    Este sitio web informa sobre Captapisos, un servicio de alertas de anuncios de inmuebles publicados por particulares,
+    dirigido a profesionales inmobiliarios, y permite acceder a su contratación. La contratación se rige por los{' '}
+    <a href="/terminos">términos y condiciones</a>.
+  </p>
+
+  <h2>3. Condiciones de uso del sitio</h2>
+  <p>
+    El acceso a este sitio es gratuito. Quien lo visita se compromete a usarlo de forma lícita, sin dañar su
+    funcionamiento ni intentar acceder a zonas o datos no autorizados.
+  </p>
+
+  <h2>4. Propiedad intelectual e industrial</h2>
+  <p>
+    Los textos, el diseño, el código, la marca Captapisos y sus logotipos son titularidad de [RAZÓN SOCIAL] o se usan
+    con autorización. No se pueden reproducir ni usar con fines comerciales sin permiso previo y por escrito.
+  </p>
+  <p>
+    Los nombres de portales que aparecen en el sitio (
+    {
+      PORTALES.map((p, i) => (
+        <>
+          <a href={p.url} target="_blank" rel="noopener">
+            {p.nombre}
+          </a>
+          {i < PORTALES.length - 2 ? ', ' : i === PORTALES.length - 2 ? ' y ' : ''}
+        </>
+      ))
+    }) son marcas de sus respectivos titulares. Se citan solo para describir de dónde proceden los anuncios: Captapisos
+    no tiene relación ni acuerdo con ellos.
+  </p>
+
+  <h2>5. Enlaces a otros sitios</h2>
+  <p>
+    El sitio y el servicio enlazan a webs de terceros, como los anuncios publicados en los portales. No controlamos su
+    contenido ni respondemos de él, ni de su disponibilidad.
+  </p>
+
+  <h2>6. Responsabilidad</h2>
+  <p>
+    Procuramos que la información del sitio sea correcta y esté actualizada, pero puede contener errores u omisiones.
+    No respondemos de los daños derivados del uso de la información del sitio ni de interrupciones de su funcionamiento
+    que no dependan de nosotros.
+  </p>
+
+  <h2>7. Protección de datos y cookies</h2>
+  <p>
+    Consulta la <a href="/privacidad">política de privacidad</a> y la <a href="/cookies">política de cookies</a>.
+  </p>
+
+  <h2>8. Ley aplicable</h2>
+  <p>
+    Este aviso legal se rige por la ley española. Para cualquier controversia serán competentes los juzgados y
+    tribunales que correspondan conforme a la ley.
+  </p>
+</Legal>

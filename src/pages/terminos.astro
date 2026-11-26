@@ -1,0 +1,143 @@
+---
+import Legal from '../layouts/Legal.astro'
+import { EMAIL_CONTACTO } from '../lib/config'
+---
+
+<Legal
+  titulo="Términos y condiciones"
+  descripcion="Condiciones de uso y contratación de Captapisos, servicio de alertas para profesionales inmobiliarios."
+  actualizado="26 de noviembre de 2026"
+>
+  <h2>1. Quiénes somos y a quién va dirigido</h2>
+  <p>
+    Captapisos es un servicio en línea prestado por <strong>[RAZÓN SOCIAL]</strong>, con NIF <strong>[NIF]</strong> y
+    domicilio en <strong>[DOMICILIO]</strong> («Captapisos», «nosotros»). Puedes escribirnos a{' '}
+    <a href={`mailto:${EMAIL_CONTACTO}`}>{EMAIL_CONTACTO}</a>.
+  </p>
+  <p>
+    El servicio está pensado exclusivamente para <strong>profesionales</strong>: agentes, agencias y asesorías
+    inmobiliarias que lo usan en el marco de su actividad empresarial o profesional. Al registrarte declaras que actúas
+    como profesional y no como consumidor, por lo que no son de aplicación las normas de protección de consumidores
+    (incluido el derecho de desistimiento).
+  </p>
+
+  <h2>2. Qué hace Captapisos</h2>
+  <p>
+    Captapisos revisa los anuncios de inmuebles que se publican de forma abierta en portales inmobiliarios de terceros y
+    te avisa de los que encajan con tus alertas, con una puntuación orientativa que estima si el anunciante es un
+    particular o un profesional, sus motivos y algunas etiquetas.
+  </p>
+  <ul>
+    <li>
+      La puntuación y las etiquetas son <strong>estimaciones automáticas</strong>: pueden equivocarse y no garantizamos
+      que un anuncio sea de un particular.
+    </li>
+    <li>
+      Los anuncios los publican terceros en los portales. Pueden contener errores, cambiar o retirarse en cualquier
+      momento. No somos responsables de su contenido.
+    </li>
+    <li>
+      Captapisos no tiene relación con los portales cuyos anuncios analiza. Sus nombres y marcas pertenecen a sus
+      respectivos titulares.
+    </li>
+  </ul>
+
+  <h2>3. Cuenta</h2>
+  <p>
+    Para usar el servicio necesitas una cuenta con datos verdaderos y un email verificado. Eres responsable de guardar
+    tu contraseña y de lo que se haga con tu cuenta. Cada cuenta es para una persona, salvo que contrates un plan para
+    varios usuarios.
+  </p>
+
+  <h2>4. Prueba gratuita</h2>
+  <p>
+    Al registrarte empieza una prueba gratuita de 7 días, sin tarjeta, con una alerta activa y las funciones que se
+    indiquen en la página de precios. Cuando termina, tus alertas se pausan hasta que elijas un plan. No se hace ningún
+    cargo automático, porque no te hemos pedido ningún medio de pago.
+  </p>
+
+  <h2>5. Planes, precios y pago</h2>
+  <ul>
+    <li>
+      Los planes y sus precios son los publicados en la web en el momento de la contratación. Los precios no incluyen
+      IVA, que se añade al pagar.
+    </li>
+    <li>
+      Se paga por adelantado, por meses o por años. El pago se procesa a través de <strong>Stripe</strong>; Captapisos no
+      ve ni guarda los datos completos de tu tarjeta.
+    </li>
+    <li>
+      La suscripción se renueva automáticamente al final de cada periodo hasta que la canceles.
+    </li>
+    <li>
+      Si cambiamos los precios, te avisaremos por email con al menos 30 días de antelación; el cambio se aplicará a partir
+      de tu siguiente renovación.
+    </li>
+    <li>Si un cobro falla, podemos suspender el acceso hasta que se actualice el medio de pago.</li>
+  </ul>
+
+  <h2>6. Cancelación y reembolsos</h2>
+  <p>
+    Puedes cancelar tu suscripción cuando quieras desde tu cuenta, sin permanencia. La cancelación tiene efecto al final
+    del periodo ya pagado: hasta entonces mantienes el acceso. <strong>No se reembolsa el periodo en curso</strong>, ni
+    total ni parcialmente, salvo que la ley lo exija. También puedes borrar tu cuenta desde la propia cuenta; al hacerlo
+    se cancela la suscripción en ese momento y se borran tus datos según la <a href="/privacidad">política de
+    privacidad</a>.
+  </p>
+
+  <h2>7. Uso aceptable y datos de los anunciantes</h2>
+  <p>
+    Los avisos pueden contener datos personales que los particulares han hecho públicos en sus anuncios. Cuando los usas
+    para contactar con ellos, lo haces como <strong>responsable</strong> de ese tratamiento y te comprometes a:
+  </p>
+  <ul>
+    <li>
+      cumplir el Reglamento General de Protección de Datos (RGPD), la Ley Orgánica 3/2018 (LOPDGDD) y la Ley 34/2002
+      (LSSI), y en particular no enviar comunicaciones comerciales electrónicas no consentidas;
+    </li>
+    <li>contactar de forma respetuosa y atender de inmediato a quien te pida que no le vuelvas a contactar;</li>
+    <li>
+      no revender, ceder ni publicar los datos de los avisos, ni usarlos para crear bases de datos ajenas al servicio;
+    </li>
+    <li>
+      no extraer datos de Captapisos de forma automatizada, no intentar eludir los límites de tu plan y no usar el
+      servicio de forma que perjudique a otros usuarios, a los portales o a los anunciantes.
+    </li>
+  </ul>
+  <p>Podemos suspender o cerrar cuentas que incumplan estas condiciones.</p>
+
+  <h2>8. Disponibilidad y responsabilidad</h2>
+  <p>
+    Trabajamos para que el servicio funcione de forma continua, pero no podemos garantizarlo: depende de terceros, como
+    los propios portales, y puede haber interrupciones, retrasos en los avisos o anuncios que no lleguemos a detectar.
+  </p>
+  <p>
+    En la medida en que la ley lo permita, nuestra responsabilidad total frente a ti se limita al importe que nos hayas
+    pagado en los 12 meses anteriores al hecho que la origine, y no respondemos de daños indirectos ni del lucro cesante,
+    como encargos u operaciones no conseguidos.
+  </p>
+
+  <h2>9. Propiedad intelectual</h2>
+  <p>
+    El software, la marca Captapisos y el diseño del servicio son nuestros o de nuestros licenciantes. Te damos un derecho
+    de uso personal, no exclusivo e intransferible mientras tengas una cuenta activa. Los anuncios y sus fotos pertenecen
+    a sus autores o a los portales.
+  </p>
+
+  <h2>10. Protección de datos</h2>
+  <p>
+    Tratamos tus datos según nuestra <a href="/privacidad">política de privacidad</a>.
+  </p>
+
+  <h2>11. Cambios en estas condiciones</h2>
+  <p>
+    Podemos actualizar estas condiciones. Si el cambio es relevante, te avisaremos por email o en el propio servicio con
+    antelación razonable. Si no estás de acuerdo, puedes cancelar antes de que entre en vigor.
+  </p>
+
+  <h2>12. Ley aplicable y jurisdicción</h2>
+  <p>
+    Estas condiciones se rigen por la ley española. Para cualquier controversia, las partes se someten a los juzgados y
+    tribunales de <strong>[CIUDAD DEL DOMICILIO]</strong>.
+  </p>
+</Legal>

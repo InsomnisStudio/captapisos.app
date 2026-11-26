@@ -1,0 +1,61 @@
+---
+import Legal from '../layouts/Legal.astro'
+import { EMAIL_CONTACTO } from '../lib/config'
+---
+
+<Legal
+  titulo="Política de cookies"
+  descripcion="Qué cookies y almacenamiento local usan la web y el portal de Captapisos."
+  actualizado="26 de noviembre de 2026"
+>
+  <h2>1. Qué son</h2>
+  <p>
+    Las cookies y tecnologías parecidas, como el almacenamiento local del navegador, guardan pequeños datos en tu
+    dispositivo cuando visitas una web. Su uso está regulado por el artículo 22.2 de la Ley 34/2002 (LSSI).
+  </p>
+
+  <h2>2. Esta web</h2>
+  <p>
+    La web informativa de Captapisos <strong>no instala cookies</strong>, ni propias ni de terceros. Las tipografías se
+    sirven desde nuestro propio dominio y no usamos herramientas de analítica ni de publicidad.
+  </p>
+
+  <h2>3. El portal (la aplicación)</h2>
+  <p>Cuando entras en tu cuenta, el portal usa solo almacenamiento técnico, necesario para que funcione. Hoy es un único dato:</p>
+  <table>
+    <thead>
+      <tr><th>Qué</th><th>Para qué</th><th>Duración</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Sesión (almacenamiento local)</td>
+        <td>Mantenerte identificado mientras usas el portal.</td>
+        <td>Hasta que cierras la sesión o caduca.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    Al ser estrictamente necesario para prestar el servicio que pides, este almacenamiento no requiere tu consentimiento.
+  </p>
+
+  <h2>4. Pagos</h2>
+  <p>
+    Si contratas un plan, el pago se hace en una página de <strong>Stripe</strong>, que puede usar sus propias cookies
+    para procesar el pago y prevenir el fraude. Se rigen por la política de cookies de Stripe.
+  </p>
+
+  <h2>5. Cómo gestionarlas</h2>
+  <p>
+    Puedes borrar las cookies y el almacenamiento local desde la configuración de tu navegador. Si borras el
+    almacenamiento del portal, tendrás que volver a entrar en tu cuenta.
+  </p>
+  <p>
+    Si en el futuro añadimos cookies que no sean técnicas, como las de analítica, te pediremos antes tu consentimiento y
+    actualizaremos esta política.
+  </p>
+
+  <h2>6. Contacto</h2>
+  <p>
+    Para cualquier duda, escríbenos a <a href={`mailto:${EMAIL_CONTACTO}`}>{EMAIL_CONTACTO}</a>.
+  </p>
+</Legal>
