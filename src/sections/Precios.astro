@@ -2,12 +2,7 @@
 import Icon from '../components/Icon.astro'
 import { EMAIL_CONTACTO, URL_REGISTRO } from '../lib/config'
 
-/*
- * Precios fijos: la landing es estática. La fuente de verdad es el backend, en
- * backend/crates/server/src/plans.rs (repo del portal), que los sirve en GET /api/plans
- * (docs/front-cuenta-y-planes.md §1). Si cambian allí, hay que cambiarlos aquí.
- * Precios sin IVA; el anual son 10 mensualidades (2 meses gratis).
- */
+/* Precios sin IVA; el anual son 10 mensualidades (2 meses gratis). */
 const PRUEBA = { dias: 7, alertas: 1, iaDiaria: 30 }
 
 const PLANES = [

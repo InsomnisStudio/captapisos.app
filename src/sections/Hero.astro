@@ -3,8 +3,8 @@ import CasaRayosX from '../components/CasaRayosX.astro'
 import Icon from '../components/Icon.astro'
 import { API_URL, URL_REGISTRO } from '../lib/config'
 
-// Tarjeta del anuncio, único elemento visual del hero. Estática de ejemplo; si el backend devuelve un anuncio real (§9 de
-// docs/front-alertas.md), el script la rellena con él y la convierte en enlace al anuncio. Ejemplo y real
+// Tarjeta del anuncio, único elemento visual del hero. Estática de ejemplo; si el backend devuelve un anuncio real,
+// el script la rellena con él y la convierte en enlace al anuncio. Ejemplo y real
 // tienen exactamente la misma forma y tamaño: al cambiar no salta nada.
 const PUNTOS = 88
 const r = 19
@@ -93,7 +93,7 @@ const c = 2 * Math.PI * r
 </section>
 
 <script>
-  // Anuncio real del backend (GET /api/public/sample-listing, §9 de docs/front-alertas.md). Si tarda,
+  // Anuncio real del backend (GET /api/public/sample-listing). Si tarda,
   // falla o no hay, se queda la tarjeta de ejemplo. Todo se escribe como texto, nunca como HTML.
   type Muestra = {
     portal?: string
