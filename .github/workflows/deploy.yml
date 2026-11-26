@@ -1,6 +1,6 @@
 # Compila la landing y la publica en GitHub Pages en cada push a master.
-# Las URLs de producción salen de las variables del repositorio
-# (Settings → Secrets and variables → Actions → Variables):
+# Las URLs de producción salen de las variables del environment github-pages
+# (Settings → Environments → github-pages → Environment variables):
 #   PUBLIC_APP_URL, PUBLIC_API_URL, PUBLIC_SITE_URL
 name: Desplegar en GitHub Pages
 
@@ -19,8 +19,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     env:
       PUBLIC_APP_URL: ${{ vars.PUBLIC_APP_URL }}
       PUBLIC_API_URL: ${{ vars.PUBLIC_API_URL }}
@@ -33,7 +36,7 @@ jobs:
         run: |
           for v in PUBLIC_APP_URL PUBLIC_API_URL PUBLIC_SITE_URL; do
             if [ -z "${!v}" ]; then
-              echo "::error::Falta la variable del repositorio $v"
+              echo "::error::Falta la variable $v en el environment github-pages"
               exit 1
             fi
           done
@@ -43,12 +46,5 @@ jobs:
           node-version: 24
           package-manager: pnpm@11.26.0
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - id: deployment
         uses: actions/deploy-pages@v4
