@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content'
+import Base from '../../layouts/Base.astro'
+import Cabecera from '../../sections/Cabecera.astro'
+import Pie from '../../sections/Pie.astro'
+import Icon from '../../components/Icon.astro'
+import { fechaIso, fechaLarga } from '../../lib/fechas'
+
+const guias = (await getCollection('guias')).sort((a, b) => b.data.publicado.getTime() - a.data.publicado.getTime())
+---
+
+<Base
+  title="Guías de captación inmobiliaria · Captapisos"
+  description="Guías prácticas para agentes y agencias: cómo encontrar pisos de particulares, distinguirlos de las agencias y llegar antes al propietario."
+>
+  <Cabecera />
+  <main id="contenido">
+    <div class="marco pt-12 pb-20 sm:pt-16">
+      <div class="mx-auto max-w-3xl">
+        <span class="antetitulo">Guías</span>
+        <h1 class="titulo-1 mt-5">Guías de captación inmobiliaria.</h1>
+        <p class="entradilla mt-5">
+          Lo que hemos aprendido analizando anuncios de pisos cada día: dónde están los particulares, cómo reconocerlos y
+          cómo llegar a ellos antes que nadie.
+        </p>
+
+        <ul class="mt-12 divide-y divide-linea border-y border-linea">
+          {
+            guias.map((g) => (
+              <li>
+                <a href={`/guias/${g.id}`} class="group flex items-start justify-between gap-6 py-6">
+                  <span>
+                    <span class="titulo-3 block group-hover:text-senal-texto">{g.data.titulo}</span>
+                    <span class="mt-2 block text-tinta-suave">{g.data.descripcion}</span>
+                    <time datetime={fechaIso(g.data.publicado)} class="mt-3 block text-pequeno text-tinta-suave">
+                      {fechaLarga(g.data.publicado)}
+                    </time>
+                  </span>
+                  <Icon name="flecha" class="mt-1.5 size-5 shrink-0 text-tinta-suave group-hover:text-tinta" />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </main>
+  <Pie />
+</Base>

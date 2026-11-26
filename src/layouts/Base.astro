@@ -5,21 +5,27 @@ import '@fontsource/geist-sans/latin-600.css'
 import '@fontsource/geist-mono/latin-400.css'
 import '@fontsource/geist-mono/latin-500.css'
 import '../styles/global.css'
+import { jsonLd, NOMBRE } from '../lib/seo'
 
 interface Props {
   title?: string
   description?: string
   /** Páginas que no deben indexarse (p. ej. borradores legales). */
   noindex?: boolean
+  /** Datos estructurados (schema.org) de la página. */
+  schema?: object
 }
 
 const {
-  title = 'Captapisos · Llega primero al propietario',
+  // Título ≤ 60 caracteres y descripción ≤ 155: es lo que Google muestra sin cortar.
+  title = 'Captapisos: alertas de pisos de particulares en tiempo real',
   noindex = false,
-  description = 'Alertas en tiempo real de los pisos que publican propietarios particulares en tu zona. Para agentes y agencias inmobiliarias que quieren llamar antes que nadie.',
+  description = 'Te avisamos en minutos cuando un particular publica su piso en tu zona. Captación para agentes y agencias inmobiliarias: llama antes que nadie.',
+  schema,
 } = Astro.props
 
-const canonical = new URL(Astro.url.pathname, Astro.site)
+// En el build la ruta lleva .html (build.format: 'file'); la URL pública no: /index.html → /, /privacidad.html → /privacidad.
+const canonical = new URL(Astro.url.pathname.replace(/(\/index)?\.html$/, '') || '/', Astro.site)
 const ogImage = new URL('/og.png', Astro.site)
 ---
 
@@ -30,22 +36,25 @@ const ogImage = new URL('/og.png', Astro.site)
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
     <link rel="canonical" href={canonical} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    {!noindex && <link rel="sitemap" type="application/xml" href="/sitemap.xml" />}
     <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#171513" media="(prefers-color-scheme: dark)" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_ES" />
-    <meta property="og:site_name" content="Captapisos" />
+    <meta property="og:site_name" content={NOMBRE} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Captapisos. Llega primero al propietario." />
@@ -53,6 +62,8 @@ const ogImage = new URL('/og.png', Astro.site)
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Captapisos. Llega primero al propietario." />
+    {schema && <script is:inline type="application/ld+json" set:html={jsonLd(schema)} />}
   </head>
   <body>
     <a

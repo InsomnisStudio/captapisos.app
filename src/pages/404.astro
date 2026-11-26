@@ -1,0 +1,27 @@
+---
+// GitHub Pages sirve dist/404.html para cualquier ruta que no existe.
+import Base from '../layouts/Base.astro'
+import Cabecera from '../sections/Cabecera.astro'
+import Pie from '../sections/Pie.astro'
+import Icon from '../components/Icon.astro'
+---
+
+<Base title="Página no encontrada · Captapisos" description="Esta página no existe o ha cambiado de dirección." noindex>
+  <Cabecera />
+  <main id="contenido">
+    <div class="marco pt-16 pb-24 sm:pt-24">
+      <div class="mx-auto max-w-xl text-center">
+        <span class="antetitulo">Error 404</span>
+        <h1 class="titulo-1 mt-5">Esta página no existe.</h1>
+        <p class="entradilla mt-5">Puede que el enlace esté mal o que la página haya cambiado de dirección.</p>
+        <div class="mt-8 flex justify-center">
+          <a href="/" class="btn btn-primario">
+            Volver al inicio
+            <Icon name="flecha" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <Pie />
+</Base>

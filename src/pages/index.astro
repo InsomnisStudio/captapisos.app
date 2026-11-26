@@ -12,9 +12,10 @@ import Preguntas from '../sections/Preguntas.astro'
 import Portales from '../sections/Portales.astro'
 import CtaFinal from '../sections/CtaFinal.astro'
 import Pie from '../sections/Pie.astro'
+import { schemaPortada } from '../lib/seo'
 ---
 
-<Base>
+<Base schema={schemaPortada(Astro.site!)}>
   <Cabecera />
   <main id="contenido">
     <Hero />

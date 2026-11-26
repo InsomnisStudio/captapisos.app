@@ -13,5 +13,9 @@ try {
 export default defineConfig({
   // URL pública de la landing (canonical y Open Graph).
   site: process.env.PUBLIC_SITE_URL || 'https://captapisos.es',
+  // URLs sin barra final (/privacidad), como los enlaces: GitHub Pages sirve privacidad.html sin redirigir
+  // y la canonical coincide con la URL que se rastrea.
+  trailingSlash: 'never',
+  build: { format: 'file' },
   vite: { plugins: [tailwindcss()] },
 })

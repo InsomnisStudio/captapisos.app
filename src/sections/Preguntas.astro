@@ -1,6 +1,7 @@
 ---
 import Icon from '../components/Icon.astro'
 import { EMAIL_CONTACTO } from '../lib/config'
+import { jsonLd } from '../lib/seo'
 
 type Pregunta = { p: string; r: string; enlace?: { href: string; label: string } }
 
@@ -51,7 +52,20 @@ const PREGUNTAS: Pregunta[] = [
     enlace: { href: `mailto:${EMAIL_CONTACTO}`, label: EMAIL_CONTACTO },
   },
 ]
+
+// Las mismas preguntas en JSON-LD (FAQPage) para buscadores y asistentes.
+const schemaPreguntas = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: PREGUNTAS.map((q) => ({
+    '@type': 'Question',
+    name: q.p,
+    acceptedAnswer: { '@type': 'Answer', text: q.enlace ? `${q.r} ${q.enlace.label}.` : q.r },
+  })),
+}
 ---
+
+<script is:inline type="application/ld+json" set:html={jsonLd(schemaPreguntas)} />
 
 <section id="preguntas" class="seccion" aria-labelledby="preguntas-titulo">
   <div class="marco grid gap-10 py-20 sm:py-24 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">

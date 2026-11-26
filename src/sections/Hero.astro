@@ -14,9 +14,10 @@ const c = 2 * Math.PI * r
 <section id="inicio" aria-labelledby="hero-titulo">
   <div class="marco grid items-center gap-12 pt-14 pb-16 sm:pt-20 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pt-24 lg:pb-24">
     <div>
-      <span class="antetitulo en-vivo">Alertas de particulares</span>
-      <h1 id="hero-titulo" class="display mt-6">
-        Llega primero <span class="text-senal">al propietario.</span>
+      <!-- El antetítulo va dentro del h1: así el encabezado principal también dice qué es (pisos de particulares). -->
+      <h1 id="hero-titulo">
+        <span class="antetitulo en-vivo">Alertas de pisos de particulares</span>{' '}
+        <span class="display mt-6 block">Llega primero <span class="text-senal">al propietario.</span></span>
       </h1>
       <p class="entradilla mt-6 max-w-xl">
         Captapisos te avisa en cuanto un particular publica su vivienda en tu zona. Separamos sus anuncios de los de
